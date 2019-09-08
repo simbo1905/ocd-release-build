@@ -1,0 +1,34 @@
+# Name: The name assigned to all of the frontend objects defined in this template.
+#name: ocd-release-build
+# webhook emory Limit: Maximum amount of memory the container can use.
+memory_limit: 512Mi
+# webhook Application Hostname: The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.
+application_domain:
+# webhook replicas
+replicas: 1
+# webhook port
+port: 9000
+# webhook webhookRepFullname: @required Sets WEBHOOK_REPO_FULLNAME which is matched on the webhook rule e.g. simbo1905/demo1
+# webhook buildNamespace: @required Sets BUILD_NAMESPACE the k8s namespace or openshift project where the build resides
+# webhook build: @required Sets BUILD the openshift BuildConfig to update with the git tag_name
+# iwebhook nsecureSkipTlsVerify: Whether to set --insecure-skip-tls-verify needed for minishift deployment 
+insecureSkipTlsVerify: false
+# s2iimage: The local s2i image name to build using. Managed outside of this template.
+s2iimage: 
+# scmsecret: The ssh key secret to pull the source.
+#scmsecret: 
+# scmsecretTagger: The ssh key secret to pull the tagger source.
+#scmsecretTagger: 
+# source_repository_url: The URL of the repository with your application source code.
+source_repository_url: 
+# source_repository_ref: Set this to a branch name, tag or other ref of your repository if you are not using the default branch.
+source_repository_ref: master
+# context_dir: Set this to the relative path to your project if it is not in the root of your repository.
+context_dir:
+# application_domain: The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted.
+application_domain:
+# github_webhook_secret: Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.
+github_webhook_secret:
+# generic_webhook_secret: A secret string used to configure the Generic webhook.
+generic_webhook_secret:
+

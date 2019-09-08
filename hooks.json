@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ocd-builder",
+    "execute-command": "/usr/local/bin/trigger-oc-build.sh",
+    "command-working-directory": "/opt/app-root/src",
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "payload",
+        "name": "release.tag_name"
+      }
+    ],
+    "trigger-rule":
+    {
+      "and":
+      [
+        {
+          "or": 
+          [
+            {
+              "match":
+              {
+                "type": "value",
+                "value": "{{ getenv "WEBHOOK_SECRET" | js }}",
+                "parameter":
+                {
+                  "source": "payload",
+                  "name": "secret"
+                }
+              }
+            }
+            ,
+            {
+              "match":
+              {
+                "type": "payload-hash-sha1",
+                "secret": "{{ getenv "WEBHOOK_SECRET" | js }}",
+                "parameter":
+                {
+                  "source": "header",
+                  "name": "X-Hub-Signature"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "match":
+          {
+            "type": "value",
+            "value": "{{ getenv "WEBHOOK_REPO_FULLNAME" | js }}",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "repository.full_name"
+            }
+          }
+        },
+        {
+          "match":
+          {
+            "type": "regex",
+            "regex": "{{ getenv "WEBHOOK_REF_REGEX" | js }}",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "release.tag_name"
+            }
+          }
+        }
+      ]
+    }
+  }
+]

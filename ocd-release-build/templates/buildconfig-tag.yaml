@@ -1,0 +1,50 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: {{ printf "tag-%s" .Values.name | quote }}
+  annotations:
+    description: Tags an image stream with the git tag of the image in the stream
+spec:
+  source:
+    type: Git
+    git:
+      uri: "https://github.com/ocd-scm/ocd-tagger.git"
+    {{ if .Values.scmsecretTagger }}
+    sourceSecret:
+      name: {{ .Values.scmsecretTagger }}
+    {{ end }}
+  strategy:
+    type: Source
+    sourceStrategy:
+      incremental : false
+      from:
+        kind: ImageStreamTag
+        namespace: {{ .Release.Namespace | quote }}
+        name: {{ printf "ocd-tools-%s:latest" .Values.name }}
+      env:
+      {{ if .Values.insecureSkipTlsVerify }}
+      - name: INSECURE_SKIP_TLS_VERIFY
+        value: "--insecure-skip-tls-verify"
+      {{ end }}
+      {{ if .Values.chatbotNotify }}
+      - name: CHATBOT_NOTIFY
+        value: {{ .Values.chatbotNotify | quote }}
+      {{ end }}
+      - name: BUILD_NAMESPACE
+        value: {{ .Release.Namespace | quote }}
+      - name: BUILD_IMAGE
+        value: {{ .Values.name | quote }}
+      - name: OPENSHIFT_SERVER
+        value: {{ .Values.openshiftServer | quote }}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ printf "tag-%s:latest" .Values.name }}
+  triggers:
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: {{ print .Values.name ":latest" | quote }}
+    type: ImageChange
+  - type: ConfigChange
+

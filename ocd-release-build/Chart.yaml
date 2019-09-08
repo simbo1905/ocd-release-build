@@ -1,0 +1,10 @@
+name: ocd-release-build
+description: A webhook and release build infrastructure
+home: https://github.com/ocd-scm/ocd-release-build
+keywords:
+- ocd-release-build
+- ocd-scm
+- openshift
+sources:
+- https://github.com/ocd-scm/ocd-release-build
+version: "1.0.0"
