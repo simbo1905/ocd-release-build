@@ -91,7 +91,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ print .Values.name "tagisreader"  | quote }}
+  name: {{ print .Values.name "isreader"  | quote }}
 subjects:
 - kind: ServiceAccount
   name: {{ printf "sa-tag-%s" .Values.name | quote }}
