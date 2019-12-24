@@ -17,6 +17,8 @@ insecureSkipTlsVerify: false
 s2iimage: 
 # scmsecret: The ssh key secret to pull the source.
 #scmsecret: 
+# pullSecret: The image pull secret which is the name of a secret containing a kubernetes.io/dockerconfigjson
+#pullSecret: 
 # scmsecretTagger: The ssh key secret to pull the tagger source.
 #scmsecretTagger: 
 # source_repository_url: The URL of the repository with your application source code.
