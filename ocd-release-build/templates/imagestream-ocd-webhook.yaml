@@ -3,9 +3,9 @@ apiVersion: image.openshift.io/v1
 metadata:
     name: {{ printf "%s-webhook" .Values.name | quote }}
 spec:
-    dockerImageRepository: docker.io/simonmassey/ocd-builder-webhook
+    dockerImageRepository: docker.io/simonmassey/ocd-release-build
     tags:
       - name: "latest"
         from:
             kind: DockerImage
-            name: docker.io/simonmassey/ocd-builder-webhook:latest
+            name: docker.io/simonmassey/ocd-release-build:latest
