@@ -14,7 +14,7 @@
 
 FROM simonmassey/ocd-tools
 
-MAINTAINER Simon Massey <simbo1905@60hertz.com>
+LABEL maintainer "Simon Massey <simbo1905@60hertz.com>"
 
 RUN mkdir /opt/app-root/src/.kube && chmod -R a+w /opt/app-root/src/.kube
 
